@@ -9,3 +9,7 @@ jobs:
     steps:
       - name: Say hello
         run: echo "Hello World!"
+      - name: What time is it now?
+        run: date
+      - name: What's in the current directory?
+        run: ls -latr
