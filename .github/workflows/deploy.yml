@@ -1,7 +1,15 @@
 name: Deploy
 
 on:
-  push
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+    types:
+      - opened
+      - synchronize
 
 jobs:
   deploy:
