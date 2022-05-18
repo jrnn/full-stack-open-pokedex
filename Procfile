@@ -1,1 +1,1 @@
-web: npm run start-prod
+web: npm run the-owls-are-not-what-they-seem

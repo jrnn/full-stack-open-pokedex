@@ -36,3 +36,4 @@ jobs:
           healthcheck: https://fso-2022-pokedex.herokuapp.com/ping
           checkstring: pong
           delay: 5
+          rollbackonhealthcheckfailed: true
