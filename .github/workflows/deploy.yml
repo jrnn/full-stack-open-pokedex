@@ -50,8 +50,8 @@ jobs:
           rollbackonhealthcheckfailed: true
   bump_version:
     # if: github.event_name == 'push'
-    needs:
-      - deploy
+    # needs:
+    #   - deploy
     runs-on: ubuntu-latest
     steps:
       - name: Bump version and push tag
