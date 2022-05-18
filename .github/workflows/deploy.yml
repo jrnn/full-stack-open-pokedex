@@ -12,42 +12,42 @@ on:
       - synchronize
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16.15.0
-          cache: npm
-      - name: Install dependencies
-        run: npm ci
-      - name: Lint
-        run: npm run lint
-      - name: Build
-        run: npm run build
-      - name: Unit tests
-        run: npm test
-      - name: E2E tests
-        uses: cypress-io/github-action@v2
-        with:
-          command: npm run test:e2e
-          start: npm run start-prod
-          wait-on: http://localhost:5000
-          install: false
-      - name: Deploy to Heroku
-        if: github.event_name == 'push'
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_TOKEN }}
-          heroku_app_name: fso-2022-pokedex
-          heroku_email: juho.juurinen@gmail.com
-          healthcheck: https://fso-2022-pokedex.herokuapp.com/ping
-          checkstring: pong
-          delay: 5
-          rollbackonhealthcheckfailed: true
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16.15.0
+  #         cache: npm
+  #     - name: Install dependencies
+  #       run: npm ci
+  #     - name: Lint
+  #       run: npm run lint
+  #     - name: Build
+  #       run: npm run build
+  #     - name: Unit tests
+  #       run: npm test
+  #     - name: E2E tests
+  #       uses: cypress-io/github-action@v2
+  #       with:
+  #         command: npm run test:e2e
+  #         start: npm run start-prod
+  #         wait-on: http://localhost:5000
+  #         install: false
+  #     - name: Deploy to Heroku
+  #       if: github.event_name == 'push'
+  #       uses: akhileshns/heroku-deploy@v3.12.12
+  #       with:
+  #         heroku_api_key: ${{ secrets.HEROKU_TOKEN }}
+  #         heroku_app_name: fso-2022-pokedex
+  #         heroku_email: juho.juurinen@gmail.com
+  #         healthcheck: https://fso-2022-pokedex.herokuapp.com/ping
+  #         checkstring: pong
+  #         delay: 5
+  #         rollbackonhealthcheckfailed: true
   bump_version:
     # if: github.event_name == 'push'
     # needs:
@@ -59,4 +59,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
+          RELEASE_BRANCHES: .*
           # RELEASE_BRANCHES: master
