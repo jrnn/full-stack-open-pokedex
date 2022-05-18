@@ -18,5 +18,12 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
-      - name: Test
+      - name: Unit tests
         run: npm test
+      - name: E2E tests
+        uses: cypress-io/github-action@v2
+        with:
+          command: npm run test:e2e
+          start: npm run start-prod
+          wait-on: http://localhost:5000
+          install: false
