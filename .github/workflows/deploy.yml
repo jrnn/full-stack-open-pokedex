@@ -23,6 +23,8 @@ jobs:
         with:
           node-version: 16.15.0
           cache: npm
+      - name: Env vars (FYI)
+        run: echo "Deployment and version bump will be skipped = $SKIP_RELEASE"
       - name: Install dependencies
         run: npm ci
       - name: Lint
