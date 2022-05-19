@@ -42,7 +42,7 @@ jobs:
           install: false
       - name: Deploy to Heroku
         if: ${{ github.event_name == 'push' && env.SKIP_RELEASE == 'false' }}
-        uses: akhileshns/heroku-deploy@v3.12.12
+        uses: akhileshns/heroku-deploy@79ef2ae4ff9b897010907016b268fd0f88561820
         with:
           heroku_api_key: ${{ secrets.HEROKU_TOKEN }}
           heroku_app_name: fso-2022-pokedex
@@ -62,7 +62,7 @@ jobs:
           fetch-depth: 0
       - name: Bump version and push tag
         if: ${{ env.SKIP_RELEASE == 'false' }}
-        uses: anothrNick/github-tag-action@1.36.0
+        uses: anothrNick/github-tag-action@ce4b5ffa38e072fa7a901e417253c438fcc2ccce
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
