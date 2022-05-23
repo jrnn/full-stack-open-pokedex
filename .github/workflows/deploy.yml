@@ -51,6 +51,27 @@ jobs:
           checkstring: pong
           delay: 5
           rollbackonhealthcheckfailed: true
+      - name: Notify failed PR
+        if: ${{ failure() && github.event_name == 'pull_request' }}
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        with:
+          severity: error
+          description: Build failed @ ${{ github.event.pull_request._links.html.href }} courtesy of ${{ github.actor }}
+          webHookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Notify failed merge commit
+        if: ${{ failure() && github.event_name == 'push' }}
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        with:
+          severity: error
+          description: Build failed @ ${{ github.event.head_commit.url }} courtesy of ${{ github.actor }}
+          webHookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Notify successful deployment
+        if: ${{ success() && github.event_name == 'push' && env.SKIP_RELEASE == 'false' }}
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        with:
+          severity: info
+          description: New Pokedex version deployed @ https://fso-2022-pokedex.herokuapp.com/
+          webHookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   bump_version:
     if: ${{ github.event_name == 'push' }}
     needs:
