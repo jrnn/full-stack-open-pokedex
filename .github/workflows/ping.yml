@@ -1,0 +1,16 @@
+name: Ping
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Periodic health check
+        uses: jtalk/url-health-check-action@d6ec9590f0f1bd173fa43aeac8b75c2270e9069d
+        with:
+          url: https://fso-2022-pokedex.herokuapp.com/ping
+          max-attempts: 5
+          retry-delay: 5s
